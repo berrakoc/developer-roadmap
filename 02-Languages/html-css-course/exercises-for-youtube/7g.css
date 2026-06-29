@@ -1,0 +1,27 @@
+.img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 80px;
+  vertical-align: middle;
+}
+.searchbox {
+  vertical-align: middle;
+  padding: 10px 50px;
+  border: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  border-radius: 30px;
+  text-align: left;
+}
+.button {
+  border-radius: 30px;
+  font-size: 16px;
+  border: none;
+  padding: 8px 17px;
+  background-color: rgb(69, 158, 247);
+  color: white;
+  font-weight: bold;
+  vertical-align: middle;
+}

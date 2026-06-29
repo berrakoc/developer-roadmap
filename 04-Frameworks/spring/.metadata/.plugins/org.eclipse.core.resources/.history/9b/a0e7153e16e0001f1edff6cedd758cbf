@@ -1,0 +1,21 @@
+package com.berrakoc.services;
+
+import java.util.List;
+
+import com.berrakoc.dto.DtoStudent;
+import com.berrakoc.dto.DtoStudentIU;
+import com.berrakoc.entities.Student;
+
+public interface IStudentService {
+
+	public DtoStudent saveStudent(DtoStudentIU student);
+	
+	public List<Student> getallStudents();
+	
+	public Student getStudentById(Integer id);
+	
+	public void deleteStudent(Integer id);
+	
+	public Student updateStudent(Integer id, Student updatedStudent);
+}
+

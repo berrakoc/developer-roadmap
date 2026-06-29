@@ -1,0 +1,5 @@
+package com.berrakoc.dto;
+
+public class DtoStudentIU {
+
+}

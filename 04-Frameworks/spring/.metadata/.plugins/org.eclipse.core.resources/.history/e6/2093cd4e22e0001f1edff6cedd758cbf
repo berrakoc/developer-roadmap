@@ -1,0 +1,44 @@
+ package com.berrakoc.controller;
+
+import java.util.List;
+
+import com.berrakoc.dto.DtoStudent;
+import com.berrakoc.dto.DtoStudentIU;
+import com.berrakoc.entities.Student;
+
+public interface IStudentController {
+	
+	public DtoStudent saveStudent(DtoStudentIU dtoStudentIU);
+	
+	public List<DtoStudent> getAllStudents();
+	
+	public DtoStudent getStudentByIdStudent (Integer id);
+	
+	public void deleteStudent(Integer id);
+	
+	public DtoStudent updateStudent (Integer id, DtoStudentIU updatedDtoStudentIU);
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

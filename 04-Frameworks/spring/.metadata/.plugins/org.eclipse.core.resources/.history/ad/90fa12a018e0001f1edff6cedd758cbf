@@ -1,0 +1,87 @@
+package com.berrakoc.controller.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.berrakoc.controller.IStudentController;
+import com.berrakoc.dto.DtoStudent;
+import com.berrakoc.dto.DtoStudentIU;
+import com.berrakoc.entities.Student;
+import com.berrakoc.services.IStudentService;
+
+@RestController
+@RequestMapping("/rest/api/student")
+public class StudentControllerImpl implements IStudentController {
+
+	@Autowired
+	private IStudentService studentService;
+
+	// DTO kullanılır.
+
+	@PostMapping(path = "/save")
+	@Override
+	public DtoStudent saveStudent(@RequestBody DtoStudentIU dtoStudentIU) {
+		return studentService.saveStudent(DtoStudentIU);
+	}
+
+	@GetMapping(path = "/list")
+	@Override
+	public List<Student> getAllStudents() {
+		return studentService.getallStudents();
+	}
+
+	@GetMapping(path = "/list/{id}")
+	@Override
+	public Student getStudentByIdStudent(@PathVariable(name = "id") Integer id) {
+
+		return studentService.getStudentById(id);
+	}
+
+	@DeleteMapping(path = "/delete/{id}") //DeleteMapping
+	@Override
+	public void deleteStudent(@PathVariable(name = "id") Integer id) {
+		studentService.deleteStudent(id);
+	}
+
+	@PutMapping(path="/update/{id}")
+	@Override
+	public Student updateStudent(@PathVariable(name="id") Integer id,@RequestBody Student updatedStudent) {
+		
+		return studentService.updateStudent(id, updatedStudent);
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

@@ -1,0 +1,80 @@
+package com.berrakoc.services.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;import org.hibernate.dialect.InnoDBStorageEngine;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.berrakoc.dto.DtoStudent;
+import com.berrakoc.dto.DtoStudentIU;
+import com.berrakoc.entities.Student;
+import com.berrakoc.repository.StudentRepository;
+import com.berrakoc.services.IStudentService;
+
+@Service
+public class StudentServiceImpl implements IStudentService {
+
+	@Autowired
+	private StudentRepository studentRepository;
+
+	@Override
+	public DtoStudent saveStudent(DtoStudentIU dtoStudentIU) {
+		Student student = new Student();//db'e kaydedebilmek için student objesi
+		BeanUtils.copyProperties(dtoStudentIU, student); //gelen datayı studen typına dönüştür ki db' kaydedebil
+
+		Student dbStudent = studentRepository.save(student); 
+		//bdStudent oluşturuyoruz çünkü db'den gelen objenin içinde id gibi öneml bilgiler olabilir
+		DtoStudent response = new DtoStudent(); //Dto türünde bir cevap
+		BeanUtils.copyProperties(dbStudent, response);
+		return response;
+	}
+
+	@Override
+	public List<DtoStudent> getallStudents() {
+		List<Student> studentList = studentRepository.findAll();
+		List<DtoStudent> dtoList = new ArrayList<>();
+		
+		for (Student student : studentList) {
+			DtoStudent dto= new DtoStudent();
+			BeanUtils.copyProperties(student, dto);
+			dtoList.add(dto);
+		}
+		return dtoList;
+	}
+
+	@Override
+	public DtoStudent getStudentById(Integer id) {
+		DtoStudent dto = new DtoStudent();
+		Optional<Student> optional = studentRepository.findById(id);
+		if (optional.isPresent()) {
+			Student dbStudent = optional.get();
+			
+			BeanUtils.copyProperties(dbStudent, dto);
+		}
+		return null;
+	}
+
+	@Override
+	public void deleteStudent(Integer id) {
+		Student dbStudent = getStudentById(id);
+		if (dbStudent != null) {
+			studentRepository.delete(dbStudent);
+		}
+	}
+
+	@Override
+	public Student updateStudent(Integer id, Student updatedStudent) {
+		Student dbStudent = getStudentById(id);
+		if (dbStudent != null) {
+			dbStudent.setFirstName(updatedStudent.getFirstName());
+			dbStudent.setLastName(updatedStudent.getLastName());
+			dbStudent.setBirthofDate(updatedStudent.getBirthofDate());
+
+			studentRepository.save(dbStudent);
+		}
+		return null;
+	}
+
+}
